@@ -7,7 +7,9 @@ let authSubscriptionRegistered = false
 /** Deduplicates Strict Mode double-invoke of initialize(). */
 let authInitPromise = null
 
-const SESSION_TIMEOUT_MS = 10000
+// 30s — getSession() may include a token-refresh network round-trip on mobile.
+// 10s was too tight and caused spurious sign-outs on slow connections.
+const SESSION_TIMEOUT_MS = 30000
 
 export const useAuthStore = create((set, get) => ({
   user: null,
@@ -38,7 +40,14 @@ export const useAuthStore = create((set, get) => ({
         }
       } catch (err) {
         console.error('Auth initialization failed:', err)
-        set({ user: null, profile: null })
+        // On a timeout or network error, do NOT wipe the user — they may have
+        // a valid cached session that just couldn't be verified right now.
+        // Only clear state if we have no existing user.
+        if (!get().user) {
+          set({ user: null, profile: null })
+        }
+        // Reset the promise so the next mount can retry initialization.
+        authInitPromise = null
       } finally {
         set({ loading: false })
       }

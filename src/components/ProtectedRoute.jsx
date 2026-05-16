@@ -19,7 +19,9 @@ export default function ProtectedRoute({ children, allowedRoles }) {
 
   useEffect(() => {
     if (!loading && !profileLoading && user && !profile) {
-      const timer = setTimeout(() => setTimedOut(true), 5000)
+      // 20s gives fetchProfile time to succeed on a slow mobile connection
+      // before showing the hard "Failed to load profile" error screen.
+      const timer = setTimeout(() => setTimedOut(true), 20000)
       return () => clearTimeout(timer)
     }
     setTimedOut(false)

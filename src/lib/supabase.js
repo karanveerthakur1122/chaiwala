@@ -41,7 +41,7 @@ export function withSupabaseTimeout(promise, ms = 45000) {
  * Returns the current session or throws if auth is missing/expired (after timeout).
  * Use before protected mutations so failures surface clearly.
  */
-export async function ensureSession(ms = 10000) {
+export async function ensureSession(ms = 30000) {
   const {
     data: { session },
     error,

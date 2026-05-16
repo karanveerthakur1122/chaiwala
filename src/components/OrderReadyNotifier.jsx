@@ -31,7 +31,7 @@ export default function OrderReadyNotifier() {
   const { data: polledReady = [] } = useQuery({
     queryKey: ['customerReadyOrdersSnapshot', user?.id],
     queryFn: async () => {
-      await ensureSession(10000)
+      await ensureSession(30000)
       let result = await withSupabaseTimeout(
         supabase
           .from('orders')

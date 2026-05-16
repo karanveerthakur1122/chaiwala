@@ -16,12 +16,12 @@ import { QueryClient } from '@tanstack/react-query'
  */
 function shouldRetry(failureCount, error) {
   const status = error?.status ?? error?.statusCode ?? error?.code
+  // Never retry auth errors — they are definitive, not transient.
   if (status === 401 || status === 403 || status === '401' || status === '403') {
     return false
   }
-  if (typeof error?.message === 'string' && /timed out/i.test(error.message)) {
-    return false
-  }
+  // Allow one retry on network timeouts — slow mobile/WiFi can cause false
+  // timeouts that succeed on a second attempt.
   return failureCount < 1
 }
 
