@@ -82,17 +82,7 @@ The app is built mobile-first, ships as an installable PWA, and is designed to b
 | Backend (BaaS)   | Supabase (Postgres, Auth, Realtime)              | Database, authentication, realtime channels            |
 | Hosting          | Netlify                                          | Static hosting + SPA redirects                         |
 
----
-
-## Screenshots
-
-> Add screenshots here once you have them. Suggested images: customer menu, customer cart, receptionist order board, admin analytics, login screen.
-
-```markdown
-![Customer menu](./docs/screenshots/customer-menu.png)
-![Order board](./docs/screenshots/order-board.png)
-![Admin analytics](./docs/screenshots/admin-analytics.png)
-```
+--
 
 ---
 
@@ -491,4 +481,4 @@ This project is licensed under the [MIT License](./LICENSE).
 
 Issues and questions: please open an issue on this repository.
 
-Maintainer: _your name / contact here_.
+Maintainer: Karan Veer Thakur / karanveerthakur1122@gmail.com .
